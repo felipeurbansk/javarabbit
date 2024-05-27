@@ -1,10 +1,15 @@
-package com.example.users.controllers;
+package com.javarabbit.application.controllers;
 
-import com.example.users.models.User;
-import com.example.users.services.UserService;
+import com.javarabbit.domain.users.dtos.UserRequestDTO;
+import com.javarabbit.domain.users.dtos.UserResponseDTO;
+import com.javarabbit.domain.users.models.User;
+import com.javarabbit.domain.users.services.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,12 +27,12 @@ public class UserController {
     }
 
     @PostMapping
-    public User createUser(@RequestBody User user) {
-        return userService.save(user);
+    public ResponseEntity<UserResponseDTO> createUser(@Valid @RequestBody UserRequestDTO user) {
+        return new ResponseEntity<>(userService.save(user), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User userData) {
+    public ResponseEntity<UserResponseDTO> updateUser(@PathVariable Long id, @RequestBody UserRequestDTO userData) {
         Optional<User> userOptional = userService.findById(id);
 
         if(!userOptional.isPresent()) {
@@ -48,9 +53,7 @@ public class UserController {
             user.setPassword(userData.getPassword());
         }
 
-        User updatedUser = userService.save(user);
-
-        return ResponseEntity.ok(updatedUser);
+        return new ResponseEntity<>(userService.save(userData), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

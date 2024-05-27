@@ -1,9 +1,7 @@
-package com.example.users.repositories;
+package com.javarabbit.infrastructure.persistence.users;
 
-import com.example.users.models.User;
+import com.javarabbit.domain.users.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.util.List;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByUsername(String username);

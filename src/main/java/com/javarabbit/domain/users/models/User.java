@@ -1,4 +1,4 @@
-package com.example.users.models;
+package com.javarabbit.domain.users.models;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
