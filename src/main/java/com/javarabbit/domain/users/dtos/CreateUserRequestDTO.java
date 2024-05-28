@@ -2,10 +2,9 @@ package com.javarabbit.domain.users.dtos;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
-public class UserRequestDTO {
+public class CreateUserRequestDTO {
 
     @NotBlank(message = "Nome de usuário é obrigatório")
     private String username;
