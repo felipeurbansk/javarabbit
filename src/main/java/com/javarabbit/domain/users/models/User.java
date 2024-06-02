@@ -1,11 +1,14 @@
 package com.javarabbit.domain.users.models;
 
+import com.javarabbit.domain.chat.models.Chat;
+import com.javarabbit.domain.messages.models.Message;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -24,12 +27,18 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    @OneToMany(mappedBy = "messages")
+    private List<Message> messages;
+
+    @OneToMany(mappedBy = "chats")
+    private List<Chat> chats;
+
     @CreationTimestamp
     @Column(updatable = false)
-    private LocalDateTime created_at;
+    private LocalDateTime createdAt;
 
     @UpdateTimestamp
-    private Date updated_at;
+    private LocalDateTime updatedAt;
 
     public User() {}
 
